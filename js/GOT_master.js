@@ -6,7 +6,8 @@
 	const 	shields		= document.querySelectorAll('.sigil-container'),
 			lightBox 	= document.querySelector('.lightbox'),
 			video 		= document.querySelector('video'),
-			lbClose 	= document.querySelector('.lightbox-close');
+			lbClose 	= document.querySelector('.lightbox-close'),
+			topBanners 	= document.querySelector('#houseImages');
 
 	function showLightbox() {
 		//debugger;
@@ -32,7 +33,23 @@
 		video.pause();
 	}
 
-	shields.forEach(shield => shield.addEventListener('click', showLightbox));
+	function animateBanners() {
+		// move the banners to the left so that the current house banner is visible
+		const offSet = 600;
+
+		// grab the data-offset number from the shield we're clicking on
+		// and then do a bit of math to get the offset
+		let currentOffset = this.dataset.offset * offSet;
+
+		// move the banners using the right css property
+		topBanners.style.right = currentOffset + "px";
+
+	}
+
+	//shields.forEach(shield => shield.addEventListener('click', showLightbox));	
+
+	// animate the banners at the top
+	shields.forEach(shield => shield.addEventListener('click', animateBanners));
 
 	video.addEventListener('ended', hideLightbox);
 	lbClose.addEventListener('click', hideLightbox);
